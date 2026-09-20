@@ -1,0 +1,44 @@
+User-agent: *
+
+# Espaces privés : compte client, panier, commande, authentification.
+# Aucune valeur en résultat de recherche + contenu propre à chaque utilisateur.
+Disallow: /account
+Disallow: /cart
+Disallow: /checkout
+Disallow: /wishlist
+Disallow: /orders
+Disallow: /order/
+Disallow: /my-orders
+Disallow: /profile
+Disallow: /reviews/create
+Disallow: /payment/
+
+# Authentification
+Disallow: /login
+Disallow: /register
+Disallow: /logout
+Disallow: /forgot-password
+Disallow: /reset-password
+Disallow: /confirm-password
+Disallow: /verify-email
+
+# Administration
+Disallow: /admin
+Disallow: /admin-test
+
+# Endpoints JSON/AJAX : ils renvoient des données, pas des pages, et ne
+# peuvent donc pas porter de balise meta robots.
+Disallow: /api/
+Disallow: /filter-by-category
+Disallow: /tryon/data/
+
+# NOTE : les URLs filtrées (?brand=, ?gender=, ?sort=...) ne sont
+# volontairement PAS bloquées ici. Elles portent une balise
+# « noindex, follow » : Google doit pouvoir les explorer pour la lire.
+# Les bloquer ici empêcherait la désindexation.
+
+# Ressources nécessaires au rendu : Google doit pouvoir les charger
+# pour évaluer correctement la page (mobile-friendly, Core Web Vitals).
+Allow: /build/
+Allow: /images/
+Allow: /storage/
