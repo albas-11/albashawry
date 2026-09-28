@@ -147,6 +147,83 @@
             background: transparent !important;
             border: 0 !important;
         }
+        /* بطاقه جديد */
+    
+        .product-add-cart-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 44px;
+    padding: 0 20px;
+
+    border: none;
+    border-radius: 5px;
+
+    background: #2E3192;
+    color: #fff;
+
+    overflow: hidden;
+    cursor: pointer;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+
+    transition: all 0.3s ease-in-out;
+}
+
+.product-add-cart-btn::after {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    width: 0%;
+    height: 100%;
+
+    background: #fff;
+
+    transition: all 0.4s ease-in-out;
+}
+
+.product-add-cart-btn:hover::after {
+    right: auto;
+    left: 0;
+    width: 100%;
+}
+
+.product-add-cart-btn span {
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease-in-out;
+}
+
+.product-add-cart-btn:hover span {
+    color: #2E3192;
+    animation: productCartScaleUp 0.3s ease-in-out;
+}
+
+@keyframes productCartScaleUp {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(0.95);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.product-add-cart-btn:active {
+    transform: scale(0.97);
+}
     </style>
 
     <div class="bg-white min-h-screen">
@@ -279,7 +356,7 @@
                             </div>
 
                             {{-- Specifications --}}
-                            {{-- <div class="mt-5">
+                            <div class="mt-5">
                     <h3 class="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-3">
                         @lang('message.Frame Specifications')
                     </h3>
@@ -329,7 +406,7 @@
                             </div>
                         @endif
                     </div>
-                </div> --}}
+                </div> 
 
                             {{-- Description --}}
                             <div class="mt-5">
@@ -373,7 +450,7 @@
                                             +
                                         </button>
                                     </div>
-
+<!-- 
                                     <button type="button"
                                         onclick="event.stopPropagation();
                                 @if ($product->type === 'eyeglasses' || $product->type === 'sunglasses' ) window.dispatchEvent(new CustomEvent('open-lens-modal'));
@@ -387,8 +464,27 @@
                                         {{ !$product->isInStock() ? 'disabled' : '' }}>
                                         <i class="fas fa-shopping-bag text-[14px]"></i>
                                         @lang('message.ADD TO CART')
-                                    </button>
+                                    </button> -->
+                                    <!-- اضف سله جدا -->
 
+
+                                    <button
+    type="button"
+    onclick="event.stopPropagation();
+@if ($product->type === 'eyeglasses' || $product->type === 'sunglasses')
+    window.dispatchEvent(new CustomEvent('open-lens-modal'));
+@else
+    addToCart({{ $product->id }}, 'product', parseInt(document.getElementById('quantity').value), null, 0);
+@endif"
+    class="product-add-cart-btn flex-1
+    {{ !$product->isInStock() ? 'opacity-40 cursor-not-allowed' : '' }}"
+    {{ !$product->isInStock() ? 'disabled' : '' }}>
+
+    <span>
+        @lang('message.ADD TO CART')
+    </span>
+
+</button>
                                     {{-- Wishlist --}}
                                     @auth
                                         <button type="button" onclick="toggleWishlist({{ $product->id }}, 'product', this)"
