@@ -1,7 +1,104 @@
+# ==========================================================
+# AL BASHAWRI
+# Robots.txt
+#
+# Strategy:
+# - Allow Google / Bing / standard search crawling
+# - Allow AI search, citation and user-requested retrieval
+# - Block AI training / bulk dataset crawlers
+# - Block private, transactional and application endpoints
+# - Keep noindex utility/filter URLs crawlable when required
+# ==========================================================
+
+
+# ==========================================================
+# 1. GENERAL SEARCH CRAWLERS
+# Googlebot, Bingbot, Applebot, DuckDuckBot, etc.
+# ==========================================================
+
 User-agent: *
 
-# Espaces privés : compte client, panier, commande, authentification.
-# Aucune valeur en résultat de recherche + contenu propre à chaque utilisateur.
+Allow: /
+
+# ----------------------------------------------------------
+# PRIVATE ACCOUNT / CUSTOMER DATA
+# ----------------------------------------------------------
+
+Disallow: /account
+Disallow: /checkout
+Disallow: /orders
+Disallow: /order/
+Disallow: /my-orders
+Disallow: /profile
+
+# ----------------------------------------------------------
+# PAYMENT / TRANSACTIONAL ENDPOINTS
+# ----------------------------------------------------------
+
+Disallow: /payment/
+
+# ----------------------------------------------------------
+# AUTHENTICATION ACTIONS / TOKEN-BASED URLS
+# ----------------------------------------------------------
+
+Disallow: /logout
+Disallow: /reset-password
+Disallow: /confirm-password
+Disallow: /verify-email
+
+# ----------------------------------------------------------
+# ADMINISTRATION
+# ----------------------------------------------------------
+
+Disallow: /admin
+Disallow: /admin-test
+
+# ----------------------------------------------------------
+# APPLICATION / JSON / AJAX ENDPOINTS
+# ----------------------------------------------------------
+
+Disallow: /api/
+Disallow: /filter-by-category
+Disallow: /tryon/data/
+
+# ----------------------------------------------------------
+# IMPORTANT:
+#
+# Do NOT block:
+# /cart
+# /wishlist
+# /login
+# /register
+# /forgot-password
+#
+# These pages should return:
+# <meta name="robots" content="noindex, follow">
+#
+# Google must be able to crawl them to see the noindex.
+# ----------------------------------------------------------
+
+# ----------------------------------------------------------
+# IMPORTANT:
+#
+# Do NOT block filtered URLs here:
+# ?brand=
+# ?gender=
+# ?sort=
+# ?min_price=
+# ?max_price=
+#
+# If these pages use "noindex, follow", crawlers need access
+# in order to discover the noindex directive.
+# ----------------------------------------------------------
+
+
+
+# ==========================================================
+# 2. OPENAI — AI SEARCH / USER RETRIEVAL
+# ==========================================================
+
+User-agent: OAI-SearchBot
+Allow: /
 Disallow: /account
 Disallow: /cart
 Disallow: /checkout
@@ -10,10 +107,6 @@ Disallow: /orders
 Disallow: /order/
 Disallow: /my-orders
 Disallow: /profile
-Disallow: /reviews/create
-Disallow: /payment/
-
-# Authentification
 Disallow: /login
 Disallow: /register
 Disallow: /logout
@@ -21,24 +114,305 @@ Disallow: /forgot-password
 Disallow: /reset-password
 Disallow: /confirm-password
 Disallow: /verify-email
-
-# Administration
+Disallow: /payment/
 Disallow: /admin
 Disallow: /admin-test
-
-# Endpoints JSON/AJAX : ils renvoient des données, pas des pages, et ne
-# peuvent donc pas porter de balise meta robots.
 Disallow: /api/
 Disallow: /filter-by-category
 Disallow: /tryon/data/
 
-# NOTE : les URLs filtrées (?brand=, ?gender=, ?sort=...) ne sont
-# volontairement PAS bloquées ici. Elles portent une balise
-# « noindex, follow » : Google doit pouvoir les explorer pour la lire.
-# Les bloquer ici empêcherait la désindexation.
 
-# Ressources nécessaires au rendu : Google doit pouvoir les charger
-# pour évaluer correctement la page (mobile-friendly, Core Web Vitals).
-Allow: /build/
-Allow: /images/
-Allow: /storage/
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /account
+Disallow: /cart
+Disallow: /checkout
+Disallow: /wishlist
+Disallow: /orders
+Disallow: /order/
+Disallow: /my-orders
+Disallow: /profile
+Disallow: /login
+Disallow: /register
+Disallow: /logout
+Disallow: /forgot-password
+Disallow: /reset-password
+Disallow: /confirm-password
+Disallow: /verify-email
+Disallow: /payment/
+Disallow: /admin
+Disallow: /admin-test
+Disallow: /api/
+Disallow: /filter-by-category
+Disallow: /tryon/data/
+
+
+
+# ==========================================================
+# 3. ANTHROPIC — CLAUDE SEARCH / USER RETRIEVAL
+# ==========================================================
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /account
+Disallow: /cart
+Disallow: /checkout
+Disallow: /wishlist
+Disallow: /orders
+Disallow: /order/
+Disallow: /my-orders
+Disallow: /profile
+Disallow: /login
+Disallow: /register
+Disallow: /logout
+Disallow: /forgot-password
+Disallow: /reset-password
+Disallow: /confirm-password
+Disallow: /verify-email
+Disallow: /payment/
+Disallow: /admin
+Disallow: /admin-test
+Disallow: /api/
+Disallow: /filter-by-category
+Disallow: /tryon/data/
+
+
+User-agent: Claude-User
+Allow: /
+Disallow: /account
+Disallow: /cart
+Disallow: /checkout
+Disallow: /wishlist
+Disallow: /orders
+Disallow: /order/
+Disallow: /my-orders
+Disallow: /profile
+Disallow: /login
+Disallow: /register
+Disallow: /logout
+Disallow: /forgot-password
+Disallow: /reset-password
+Disallow: /confirm-password
+Disallow: /verify-email
+Disallow: /payment/
+Disallow: /admin
+Disallow: /admin-test
+Disallow: /api/
+Disallow: /filter-by-category
+Disallow: /tryon/data/
+
+
+
+# ==========================================================
+# 4. PERPLEXITY — AI SEARCH / USER RETRIEVAL
+# ==========================================================
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /account
+Disallow: /cart
+Disallow: /checkout
+Disallow: /wishlist
+Disallow: /orders
+Disallow: /order/
+Disallow: /my-orders
+Disallow: /profile
+Disallow: /login
+Disallow: /register
+Disallow: /logout
+Disallow: /forgot-password
+Disallow: /reset-password
+Disallow: /confirm-password
+Disallow: /verify-email
+Disallow: /payment/
+Disallow: /admin
+Disallow: /admin-test
+Disallow: /api/
+Disallow: /filter-by-category
+Disallow: /tryon/data/
+
+
+User-agent: Perplexity-User
+Allow: /
+Disallow: /account
+Disallow: /cart
+Disallow: /checkout
+Disallow: /wishlist
+Disallow: /orders
+Disallow: /order/
+Disallow: /my-orders
+Disallow: /profile
+Disallow: /login
+Disallow: /register
+Disallow: /logout
+Disallow: /forgot-password
+Disallow: /reset-password
+Disallow: /confirm-password
+Disallow: /verify-email
+Disallow: /payment/
+Disallow: /admin
+Disallow: /admin-test
+Disallow: /api/
+Disallow: /filter-by-category
+Disallow: /tryon/data/
+
+
+
+# ==========================================================
+# 5. GOOGLE / GEMINI USER-REQUESTED AI AGENTS
+# ==========================================================
+
+User-agent: Gemini-Deep-Research
+Allow: /
+Disallow: /account
+Disallow: /cart
+Disallow: /checkout
+Disallow: /wishlist
+Disallow: /orders
+Disallow: /order/
+Disallow: /my-orders
+Disallow: /profile
+Disallow: /login
+Disallow: /register
+Disallow: /payment/
+Disallow: /admin
+Disallow: /api/
+
+
+User-agent: Google-CloudVertexBot
+Allow: /
+Disallow: /account
+Disallow: /cart
+Disallow: /checkout
+Disallow: /wishlist
+Disallow: /orders
+Disallow: /order/
+Disallow: /profile
+Disallow: /login
+Disallow: /register
+Disallow: /payment/
+Disallow: /admin
+Disallow: /api/
+
+
+
+# ==========================================================
+# 6. META AI SEARCH
+# ==========================================================
+
+User-agent: Meta-WebIndexer
+Allow: /
+Disallow: /account
+Disallow: /cart
+Disallow: /checkout
+Disallow: /wishlist
+Disallow: /orders
+Disallow: /order/
+Disallow: /profile
+Disallow: /login
+Disallow: /register
+Disallow: /payment/
+Disallow: /admin
+Disallow: /api/
+
+
+
+# ==========================================================
+# 7. DUCKDUCKGO AI ANSWERS
+# ==========================================================
+
+User-agent: DuckAssistBot
+Allow: /
+Disallow: /account
+Disallow: /cart
+Disallow: /checkout
+Disallow: /wishlist
+Disallow: /orders
+Disallow: /order/
+Disallow: /profile
+Disallow: /login
+Disallow: /register
+Disallow: /payment/
+Disallow: /admin
+Disallow: /api/
+
+
+
+# ==========================================================
+# 8. MISTRAL USER-REQUESTED RETRIEVAL
+# ==========================================================
+
+User-agent: MistralAI-User
+Allow: /
+Disallow: /account
+Disallow: /cart
+Disallow: /checkout
+Disallow: /wishlist
+Disallow: /orders
+Disallow: /order/
+Disallow: /profile
+Disallow: /login
+Disallow: /register
+Disallow: /payment/
+Disallow: /admin
+Disallow: /api/
+
+
+
+# ==========================================================
+# 9. AI TRAINING / DATASET CRAWLERS
+# BLOCKED BY POLICY
+# ==========================================================
+
+# OpenAI training crawler
+User-agent: GPTBot
+Disallow: /
+
+# Anthropic training crawler
+User-agent: ClaudeBot
+Disallow: /
+
+# Google AI model/data-use token
+User-agent: Google-Extended
+Disallow: /
+
+# Apple AI training-use token
+User-agent: Applebot-Extended
+Disallow: /
+
+# Meta AI training
+User-agent: meta-externalagent
+Disallow: /
+
+# ByteDance AI crawler
+User-agent: Bytespider
+Disallow: /
+
+# Common Crawl
+User-agent: CCBot
+Disallow: /
+
+# Amazon AI crawler
+User-agent: Amazonbot
+Disallow: /
+
+# Data extraction / scraping crawlers
+User-agent: webzio
+Disallow: /
+
+User-agent: Diffbot
+Disallow: /
+
+User-agent: ICC-Crawler
+Disallow: /
+
+
+
+# ==========================================================
+# 10. SITEMAP
+# Activate only after sitemap URL is confirmed to return
+# a valid 200 XML sitemap.
+# ==========================================================
+
+Sitemap: https://albashawri.com.sa/sitemap.xml
+

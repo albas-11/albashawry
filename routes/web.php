@@ -401,3 +401,19 @@ Route::middleware(['auth', 'role:admin,user'])->get('/admin-test', function () {
 });
 
 Route::get('/api/stores', [StoreController::class, 'getStoresJson'])->name('stores.json');
+// Sitemap XML routes
+Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'index'])
+    ->name('sitemap.index');
+
+Route::get('/pages.xml', [\App\Http\Controllers\SitemapController::class, 'pages'])
+    ->name('sitemap.pages');
+
+Route::get('/categories.xml', [\App\Http\Controllers\SitemapController::class, 'categories'])
+    ->name('sitemap.categories');
+
+Route::get('/brands.xml', [\App\Http\Controllers\SitemapController::class, 'brands'])
+    ->name('sitemap.brands');
+
+Route::get('/products-{page}.xml', [\App\Http\Controllers\SitemapController::class, 'products'])
+    ->whereNumber('page')
+    ->name('sitemap.products');

@@ -16,6 +16,7 @@
 
 <form action="{{ route('admin.accessories.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
+    
     <div class="row g-4">
 
         <!-- LEFT COLUMN -->
@@ -132,4 +133,5 @@
     </div>
 </form>
 
+   
 @endsection
