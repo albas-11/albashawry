@@ -681,12 +681,9 @@ section.category-slider-section.py-4 .container {
 
         <div class="swiper-wrapper">
 
-            <!-- ==================================
-                 SLIDE 1
-                 ================================== -->
-            <div class="swiper-slide">
+            <!-- <div class="swiper-slide">
 
-                <a
+                 <a
                     href="#latest-products"
                     class="hero-slide-link"
                     aria-label="Latest Products"
@@ -694,7 +691,6 @@ section.category-slider-section.py-4 .container {
 
                     <picture class="hero-picture">
 
-                        <!-- Mobile -->
                         <source
                             media="(max-width: 767px)"
                             srcset="{{ app()->getLocale() === 'en'
@@ -702,7 +698,6 @@ section.category-slider-section.py-4 .container {
                                 : asset('images/1mob.webp') }}"
                         >
 
-                        <!-- Desktop / Tablet -->
                         <img
                             src="{{ app()->getLocale() === 'en'
                                 ? asset('images/11.webp')
@@ -717,9 +712,9 @@ section.category-slider-section.py-4 .container {
 
                     </picture>
 
-                </a>
+                </a> 
 
-            </div>
+            </div> -->
 
 
             <!-- ==================================
